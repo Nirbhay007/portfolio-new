@@ -35,8 +35,8 @@ const config: Config = {
           foreground: "hsl(var(--primary-foreground))",
         },
         special: {
-          DEFAULT: "hsl(48, 100%, 67%)",
-          foreground: "hsl(var(--special-foreground))",
+          DEFAULT: "hsl(var(--primary))", // Same as primary color for space theme consistency
+          foreground: "hsl(0, 0%, 98%)", // Light text that works well in both themes
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

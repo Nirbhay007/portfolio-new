@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import gsap from "gsap";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const FloatingAstronaut = () => {
   const astronautRef = useRef<HTMLDivElement>(null);
@@ -91,45 +91,31 @@ const FloatingAstronaut = () => {
       {/* Astronaut */}
       <motion.div
         ref={astronautRef}
-        className="absolute left-1/3 top-1/3 w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64"
-        // Initial state of the animation
+        className="absolute left-1/3 top-1/3 w-64 h-64 md:w-72 md:h-72 lg:w-96 lg:h-96"
         initial={{
-          // Start with 0 opacity
           opacity: 0,
-          // Move the astronaut 50px up and 20px to the right
+          scale: 0.98,
           y: -50,
-          // x: 20,
-          // Scale the astronaut to 0.8
-          scale: 0.8,
         }}
-        // Animation target
         animate={{
-          // Set the opacity to 1
           opacity: 1,
-          // Move the astronaut back to its original position
-          y: 0,
-          x: 0,
-          // Scale the astronaut to 1
-          scale: 1,
+          scale: 1
+          
         }}
-        // Animation transition
         transition={{
-          // Duration of the animation
-          duration: 1.2,
-          // Delay the animation by 0.5s
-          delay: 0.5,
-          // Make the animation feel more natural
-          ease: "easeInOut",
+          duration: 0,
+          ease: "easeOut"
         }}
       >
         <Image
           src="/images/ast1.png"
           alt="Floating Astronaut"
-          // fill
-          className="object-contain"
-          width={450}
-          height={500}
+          fill
           priority
+          className="object-contain"
+          loading="eager"
+          sizes="(max-width: 768px) 256px, (max-width: 1024px) 288px, 384px"
+          quality={100}
         />
       </motion.div>
     </motion.div>
