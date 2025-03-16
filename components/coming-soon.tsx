@@ -31,7 +31,7 @@ export default function ComingSoonPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              We're working hard to bring you our {serviceName} services. This page is currently under construction.
+              I'm currently developing my {serviceName} services. This page is under construction.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export default function ComingSoonPage() {
               </motion.div>
 
               {/* Floating Particles */}
-              {[...Array(5)].map((_, i) => (
+              {[...Array(15)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-3 h-3 rounded-full bg-primary/20"

@@ -1,0 +1,23 @@
+[
+    {
+        "id": "external-1",
+        "title": "Understanding React Server Components",
+        "excerpt": "A deep dive into React Server Components and their benefits",
+        "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee",
+        "date": "2024-03-19",
+        "readTime": "10 min read",
+        "category": "React",
+        "tags": [
+            "React",
+            "Server Components",
+            "Next.js"
+        ],
+        "author": {
+            "name": "Nirbhay Singh",
+            "image": "/images/authors/your-avatar.jpg"
+        },
+        "isExternal": true,
+        "externalUrl": "https://example.com/blog/react-server-components",
+        "slug": "understanding-react-server-components"
+    }
+]

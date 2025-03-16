@@ -1,0 +1,79 @@
+---
+title: "Using MDX in Next.js"
+excerpt: "Learn how to integrate MDX into your Next.js application for rich content"
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c"
+date: "2024-03-15"
+readTime: "7 min read"
+category: "Next.js"
+tags: ["Next.js", "MDX", "React", "Content"]
+author:
+  name: "Nirbhay Singh"
+  image: "/images/authors/your-avatar.jpg"
+---
+
+# Using MDX in Next.js
+
+MDX is a powerful combination of Markdown and JSX that allows you to write content with embedded React components.
+
+## Why Use MDX?
+
+MDX provides several benefits for content-heavy websites:
+
+1. **Rich Content** - Embed interactive components within your markdown
+2. **Consistent Styling** - Apply your design system to markdown content
+3. **Developer Experience** - Write content in a familiar format
+4. **Component Reuse** - Create and reuse custom components
+
+## Setting Up MDX in Next.js
+
+First, install the necessary dependencies:
+
+```bash
+npm install @next/mdx @mdx-js/loader @mdx-js/react
+```
+
+Then, configure your Next.js project to support MDX:
+
+```javascript
+// next.config.mjs
+import createMDX from '@next/mdx';
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX({
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+});
+```
+
+## Using Components in MDX
+
+One of the best features of MDX is the ability to use React components directly in your content:
+
+```jsx
+import { Chart } from '../components/Chart';
+
+# Sales Report
+
+Here's our quarterly sales data:
+
+<Chart data={salesData} />
+```
+
+## Styling MDX Content
+
+You can style your MDX content using Tailwind's typography plugin:
+
+```jsx
+<article className="prose prose-lg dark:prose-invert">
+  <MDXContent />
+</article>
+```
+
+## Conclusion
+
+MDX is a fantastic way to create rich, interactive content in your Next.js applications. It combines the simplicity of Markdown with the power of React components. 
