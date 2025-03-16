@@ -53,7 +53,7 @@ const About = () => {
             <ul className="list-none mt-8">
               <li className="mb-4">
                 <span className="text-foreground/80">Languages: </span>
-                <span className="text-special font-bold">
+                <span className="text-primary font-bold">
                   JavaScript, TypeScript, HTML, CSS ,Java, Python, C++
                 </span>
               </li>

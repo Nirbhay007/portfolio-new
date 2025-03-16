@@ -1,12 +1,12 @@
 "use client";
 
+import AnimatedText from "@/components/animated-text";
+import FloatingAstronaut from "@/components/floating-astronaut";
+import ParallaxEffect from "@/components/parallax-effect";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import AnimatedText from "@/components/animated-text";
-import ParallaxEffect from "@/components/parallax-effect";
-import FloatingAstronaut from "@/components/floating-astronaut";
-
+import { useTheme } from "next-themes";
 const HeroSection = () => {
   const scrollToNextSection = () => {
     const aboutSection = document.getElementById("about");
@@ -15,8 +15,9 @@ const HeroSection = () => {
     }
   };
 
+  const { theme } = useTheme();
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden space-bg">
+    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden ${theme === "dark" ? "space-bg" : "bg-background"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
