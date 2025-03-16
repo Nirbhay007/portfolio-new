@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
-const CustomCursor = () => {
+export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState('default');
 
@@ -15,41 +15,52 @@ const CustomCursor = () => {
       });
     };
 
-    const handleMouseOver = () => setCursorVariant('hover');
-    const handleMouseOut = () => setCursorVariant('default');
-
     window.addEventListener('mousemove', mouseMove);
-
-    // Add event listeners to all clickable elements
-    const clickableElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
-    clickableElements.forEach((element) => {
-      element.addEventListener('mouseover', handleMouseOver);
-      element.addEventListener('mouseout', handleMouseOut);
-    });
 
     return () => {
       window.removeEventListener('mousemove', mouseMove);
-      clickableElements.forEach((element) => {
-        element.removeEventListener('mouseover', handleMouseOver);
-        element.removeEventListener('mouseout', handleMouseOut);
-      });
     };
+  }, []);
+
+  useEffect(() => {
+    const handleLinkHoverEvents = () => {
+      const links = document.querySelectorAll('a, button, .cursor-hover');
+
+      links.forEach((link) => {
+        link.addEventListener('mouseenter', () => setCursorVariant('hover'));
+        link.addEventListener('mouseleave', () => setCursorVariant('default'));
+      });
+
+      return () => {
+        links.forEach((link) => {
+          link.removeEventListener('mouseenter', () =>
+            setCursorVariant('hover')
+          );
+          link.removeEventListener('mouseleave', () =>
+            setCursorVariant('default')
+          );
+        });
+      };
+    };
+
+    const cleanup = handleLinkHoverEvents();
+    return cleanup;
   }, []);
 
   const variants = {
     default: {
       x: mousePosition.x,
       y: mousePosition.y,
-      height: 20,
-      width: 20,
+      height: 32,
+      width: 32,
     },
     hover: {
       x: mousePosition.x,
       y: mousePosition.y,
-      height: 40,
-      width: 40,
-      backgroundColor: "rgba(139, 92, 246, 0.5)",
-      mixBlendMode: "normal",
+      height: 64,
+      width: 64,
+      backgroundColor: "rgba(255, 255, 255, 0.2)",
+      mixBlendMode: "difference" as const,
     },
   };
 
@@ -76,9 +87,9 @@ const CustomCursor = () => {
         animate={cursorVariant}
         transition={{
           type: "spring",
-          mass: 0.1,
-          stiffness: 100,
-          damping: 10,
+          damping: 25,
+          stiffness: 300,
+          mass: 0.5,
         }}
       />
       <motion.div
@@ -88,6 +99,4 @@ const CustomCursor = () => {
       />
     </>
   );
-};
-
-export default CustomCursor;
+}
