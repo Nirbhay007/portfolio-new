@@ -14,7 +14,7 @@
         ],
         "author": {
             "name": "Nirbhay Singh",
-            "image": "/images/authors/your-avatar.jpg"
+            "image": "/images/avatar.jpg"
         },
         "isExternal": true,
         "externalUrl": "https://example.com/blog/react-server-components",

@@ -8,7 +8,7 @@ category: "Next.js"
 tags: ["Next.js", "MDX", "React", "Content"]
 author:
   name: "Nirbhay Singh"
-  image: "/images/authors/your-avatar.jpg"
+  image: "/images/avatar.jpg"
 ---
 
 # Using MDX in Next.js
@@ -36,7 +36,7 @@ Then, configure your Next.js project to support MDX:
 
 ```javascript
 // next.config.mjs
-import createMDX from '@next/mdx';
+import createMDX from "@next/mdx";
 
 const withMDX = createMDX({
   options: {
@@ -46,7 +46,7 @@ const withMDX = createMDX({
 });
 
 export default withMDX({
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 });
 ```
 
@@ -76,4 +76,4 @@ You can style your MDX content using Tailwind's typography plugin:
 
 ## Conclusion
 
-MDX is a fantastic way to create rich, interactive content in your Next.js applications. It combines the simplicity of Markdown with the power of React components. 
+MDX is a fantastic way to create rich, interactive content in your Next.js applications. It combines the simplicity of Markdown with the power of React components.
