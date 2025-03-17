@@ -6,8 +6,26 @@ import { useEffect, useState } from 'react';
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState('default');
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Listen for resize events
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const mouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: e.clientX,
@@ -20,9 +38,11 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', mouseMove);
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleLinkHoverEvents = () => {
       const links = document.querySelectorAll('a, button, .cursor-hover');
 
@@ -33,19 +53,18 @@ export default function CustomCursor() {
 
       return () => {
         links.forEach((link) => {
-          link.removeEventListener('mouseenter', () =>
-            setCursorVariant('hover')
-          );
-          link.removeEventListener('mouseleave', () =>
-            setCursorVariant('default')
-          );
+          link.removeEventListener('mouseenter', () => setCursorVariant('hover'));
+          link.removeEventListener('mouseleave', () => setCursorVariant('default'));
         });
       };
     };
 
     const cleanup = handleLinkHoverEvents();
     return cleanup;
-  }, []);
+  }, [isMobile]);
+
+  // Don't render anything on mobile
+  if (isMobile) return null;
 
   const variants = {
     default: {

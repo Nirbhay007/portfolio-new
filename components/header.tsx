@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { GithubIcon, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-import { Menu, X, Github, Linkedin, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,14 +14,25 @@ const Header = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
+  // Add this effect to handle mobile menu on scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    if (isOpen) {
+      // Prevent body scrolling when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling when menu is closed
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
     };
+  }, [isOpen]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -113,7 +124,7 @@ const Header = () => {
               aria-label="GitHub"
               className="text-foreground/70 hover:text-foreground transition-colors"
             >
-              <Github size={20} />
+              <GithubIcon size={20} />
             </a>
             <a
               href="https://www.linkedin.com/in/nirbhay-singh-349aba12a/"
@@ -154,7 +165,10 @@ const Header = () => {
         initial="closed"
         animate={isOpen ? "open" : "closed"}
         variants={mobileMenuVariants}
-        style={{ display: isOpen ? "block" : "none" } as React.CSSProperties}
+        style={{ 
+          display: isOpen ? "block" : "none",
+          top: scrolled ? "0" : "0" // Ensure menu starts from top
+        } as React.CSSProperties}
       >
         <div className="flex flex-col h-full p-8">
           <div className="flex justify-end mb-8">
@@ -197,7 +211,7 @@ const Header = () => {
               aria-label="GitHub"
               className="text-foreground/70 hover:text-foreground transition-colors"
             >
-              <Github size={24} />
+              <GithubIcon size={24} />
             </a>
             <a
               href="https://linkedin.com/in/nirbhay-singh-349aba12a/"
@@ -209,6 +223,7 @@ const Header = () => {
               <Linkedin size={24} />
             </a>
             <Button
+              className="pb-4"
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
