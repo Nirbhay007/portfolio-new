@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [cursorVariant, setCursorVariant] = useState('default');
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+  const [hasMouseMoved, setHasMouseMoved] = useState(false);
 
   useEffect(() => {
     // Check if device is mobile
@@ -14,10 +15,7 @@ export default function CustomCursor() {
       setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
     
-    // Initial check
     checkMobile();
-    
-    // Listen for resize events
     window.addEventListener('resize', checkMobile);
     
     return () => window.removeEventListener('resize', checkMobile);
@@ -31,14 +29,12 @@ export default function CustomCursor() {
         x: e.clientX,
         y: e.clientY,
       });
+      if (!hasMouseMoved) setHasMouseMoved(true);
     };
 
     window.addEventListener('mousemove', mouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', mouseMove);
-    };
-  }, [isMobile]);
+    return () => window.removeEventListener('mousemove', mouseMove);
+  }, [isMobile, hasMouseMoved]);
 
   useEffect(() => {
     if (isMobile) return;
@@ -63,8 +59,8 @@ export default function CustomCursor() {
     return cleanup;
   }, [isMobile]);
 
-  // Don't render anything on mobile
-  if (isMobile) return null;
+  // Don't render anything on mobile or before mouse movement
+  if (isMobile || !hasMouseMoved) return null;
 
   const variants = {
     default: {

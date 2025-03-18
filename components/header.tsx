@@ -14,18 +14,51 @@ const Header = () => {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    handleScroll();
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Add this effect to handle mobile menu on scroll
   useEffect(() => {
     if (isOpen) {
-      // Prevent body scrolling when menu is open
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Prevent body scrolling more effectively
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
+      
+      // Store scroll position in a data attribute
+      document.body.dataset.scrollPosition = scrollY.toString();
     } else {
-      // Re-enable scrolling when menu is closed
+      // Restore scroll position when menu is closed
+      const scrollY = parseInt(document.body.dataset.scrollPosition || '0');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
+      
+      // Restore previous scroll position
+      window.scrollTo(0, scrollY);
     }
     
     return () => {
+      // Clean up in case component unmounts with menu open
+      const scrollY = parseInt(document.body.dataset.scrollPosition || '0');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
+      window.scrollTo(0, scrollY);
     };
   }, [isOpen]);
 
@@ -167,7 +200,7 @@ const Header = () => {
         variants={mobileMenuVariants}
         style={{ 
           display: isOpen ? "block" : "none",
-          top: scrolled ? "0" : "0" // Ensure menu starts from top
+          top: "0" // Ensure menu starts from top
         } as React.CSSProperties}
       >
         <div className="flex flex-col h-full p-8">
