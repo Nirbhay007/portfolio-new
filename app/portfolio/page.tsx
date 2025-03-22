@@ -106,14 +106,14 @@ export default function Portfolio() {
                   </div>
                   <div className="flex gap-4">
                     <a 
-                      href={project.github} 
+                      href={project.repoUrl} 
                       className="text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
                     >
                       <Github size={16} />
                       <span>Code</span>
                     </a>
                     <a 
-                      href={project.demo} 
+                      href={project.demoUrl} 
                       className="text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
                     >
                       <ExternalLink size={16} />
