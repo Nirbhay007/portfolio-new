@@ -6,8 +6,7 @@ import { motion } from "framer-motion";
 import { Calendar, Clock, ExternalLink, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-
+import { useRouter, useSearchParams } from "next/navigation";
 export function BlogList({ initialPosts }: { initialPosts: BlogPost[] }) {
   const searchParams = useSearchParams();
   const query = searchParams.get("q")?.toLowerCase() || "";
@@ -45,12 +44,20 @@ export function BlogList({ initialPosts }: { initialPosts: BlogPost[] }) {
 }
 
 function BlogCard({ post, index }: { post: BlogPost; index: number }) {
+  const router = useRouter();
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-card rounded-lg overflow-hidden shadow-lg card-hover"
+      onClick={() => {
+        if (post.isExternal) {
+          window.open(post.externalUrl || "", "_blank");
+        } else {
+          router.push(`/blog/${post.slug}`);
+        }
+      }}
+      className="bg-card rounded-lg overflow-hidden shadow-lg card-hover cursor-pointer"
     >
       <div className="h-48 relative overflow-hidden">
         <Image
@@ -85,9 +92,9 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
 
         <h2 className="text-xl font-bold mb-3 hover:text-primary transition-colors">
           {post.isExternal ? (
-            <a href={post.externalUrl} target="_blank" rel="noopener noreferrer">
+            <Link href={post.externalUrl || ""} target="_blank" rel="noopener noreferrer">
               {post.title}
-            </a>
+            </Link>
           ) : (
             <Link href={`/blog/${post.slug}`}>{post.title}</Link>
           )}
@@ -109,9 +116,9 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
 
         <Button variant="link" className="p-0 h-auto" asChild>
           {post.isExternal ? (
-            <a href={post.externalUrl} target="_blank" rel="noopener noreferrer">
+            <Link href={post.externalUrl || ""} target="_blank" rel="noopener noreferrer">
               Read More <ExternalLink size={14} className="ml-1" />
-            </a>
+            </Link>
           ) : (
             <Link href={`/blog/${post.slug}`}>Read More</Link>
           )}

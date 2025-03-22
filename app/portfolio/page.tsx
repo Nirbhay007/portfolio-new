@@ -5,70 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, Code, Layers, Database, PaintBucket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import StarField from '@/components/star-field';
+import { projects } from '@/content/project/project-data';
 
 // Sample project data
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-featured e-commerce platform with product management, cart functionality, and payment processing.",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
-    category: "fullstack",
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 2,
-    title: "Portfolio Website",
-    description: "A modern portfolio website with smooth animations and responsive design.",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    category: "frontend",
-    github: "https://github.com/Nirbhay007/portfolio-new",
-    demo: "#",
-  },
-  {
-    id: 3,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates and team features.",
-    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    tags: ["React", "Firebase", "Material UI"],
-    category: "fullstack",
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 4,
-    title: "Weather Dashboard",
-    description: "A weather dashboard that displays current and forecasted weather data for any location.",
-    image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    tags: ["JavaScript", "OpenWeather API", "Chart.js"],
-    category: "frontend",
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 5,
-    title: "Blog API",
-    description: "A RESTful API for a blog platform with authentication, posts, comments, and user management.",
-    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    tags: ["Node.js", "Express", "MongoDB", "JWT"],
-    category: "backend",
-    github: "#",
-    demo: "#",
-  },
-  {
-    id: 6,
-    title: "UI Component Library",
-    description: "A custom UI component library with reusable components for web applications.",
-    image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    tags: ["React", "Storybook", "CSS Modules"],
-    category: "ui",
-    github: "#",
-    demo: "#",
-  },
-];
 
 export default function Portfolio() {
   const [filter, setFilter] = useState('all');

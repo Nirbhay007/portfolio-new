@@ -2,11 +2,11 @@ import CustomCursor from "@/components/custom-cursor";
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +31,15 @@ export const metadata: Metadata = {
     "backend",
     "fullstack",
   ],
+  icons: {
+    icon: [
+      { url: '/images/favicon/favicon.ico', sizes: '32x32' },
+      { url: '/images/favicon/icon.png', sizes: '512x512' },
+    ],
+    apple: [
+      { url: '/images/favicon/apple-touch-icon.png', sizes: '180x180' },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -40,6 +49,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/images/favicon/favicon.ico" sizes="32x32" />
+        <link rel="icon" href="/images/favicon/icon.png" sizes="512x512" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png" sizes="180x180" />
+        <link rel="manifest" href="/images/favicon/site.webmanifest" />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
         <ThemeProvider
           attribute="class"

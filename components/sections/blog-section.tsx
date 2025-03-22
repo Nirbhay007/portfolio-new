@@ -6,12 +6,13 @@ import { BlogPost } from "@/types/blog";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BlogSection() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   useEffect(() => {
     async function fetchPosts() {
       try {
@@ -72,7 +73,7 @@ export default function BlogSection() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 cursor-pointer">
             {posts.map((post, index) => (
               <motion.div
                 key={post.id}
@@ -80,6 +81,13 @@ export default function BlogSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                onClick={() => {
+                  if (post.isExternal) {
+                    window.open(post.externalUrl || "", "_blank");
+                  } else {
+                    router.push(`/blog/${post.slug}`);
+                  }
+                }}
                 className="bg-card rounded-lg overflow-hidden shadow-lg card-hover"
               >
                 <div className="h-48 overflow-hidden">
@@ -99,8 +107,8 @@ export default function BlogSection() {
                   <h3 className="text-xl font-bold mb-3 line-clamp-2">{post.title}</h3>
                   <p className="text-foreground/70 mb-4 line-clamp-3">{post.excerpt}</p>
                   {post.isExternal ? (
-                    <a 
-                      href={post.externalUrl} 
+                    <Link 
+                      href={post.externalUrl || ""} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-primary hover:underline inline-flex items-center"
@@ -115,7 +123,7 @@ export default function BlogSection() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
-                    </a>
+                    </Link>
                   ) : (
                     <Link 
                       href={`/blog/${post.slug}`}
