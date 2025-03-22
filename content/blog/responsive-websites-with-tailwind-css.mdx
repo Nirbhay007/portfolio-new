@@ -1,0 +1,81 @@
+---
+id: "responsive-websites-with-tailwind-css"
+title: "Building Responsive Websites with Tailwind CSS"
+excerpt: "Learn how to create beautiful, responsive websites quickly using Tailwind CSS utility classes for modern web development."
+image: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+date: "March 15, 2025"
+readTime: "5 min read"
+category: "Web Development"
+tags: ["Tailwind CSS", "Responsive Design", "CSS", "Frontend"]
+author:
+  name: "Nirbhay Singh"
+  image: "/images/avatar.jpg"
+---
+
+## Introduction
+
+In today's web development landscape, creating responsive websites that look great on all devices is no longer optional—it's essential. Tailwind CSS has emerged as a revolutionary tool that challenges traditional CSS frameworks by providing low-level utility classes instead of pre-designed components.
+
+<FeatureCard title="What sets Tailwind apart?">
+  Unlike Bootstrap or Foundation, Tailwind doesn't impose design decisions or aesthetic choices. Instead, it provides the building blocks that let you construct your unique design system without fighting against pre-existing styles.
+</FeatureCard>
+
+## Why Choose Tailwind CSS?
+
+Tailwind offers several compelling advantages that have contributed to its rapid adoption in modern web development:
+
+<GridCards>
+  <GridCard title="Developer Experience">
+    Write markup without leaving your HTML/JSX, eliminating context switching between files.
+  </GridCard>
+  
+  <GridCard title="Design Consistency">
+    Constraints-based system enforces consistent spacing, sizing, colors, and more.
+  </GridCard>
+  
+  <GridCard title="Performance">
+    Built-in PurgeCSS integration means your production CSS is tiny.
+  </GridCard>
+  
+  <GridCard title="Responsiveness">
+    Intuitive breakpoint system makes mobile-first design straightforward.
+  </GridCard>
+</GridCards>
+
+## Getting Started with Tailwind
+
+Setting up Tailwind CSS in your project is straightforward:
+
+```bash
+# Install Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+
+# Generate configuration files
+npx tailwindcss init -p
+```
+
+Next, configure your template paths in `tailwind.config.js`:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+<TipCard title="Pro Tip">
+  Tailwind uses a mobile-first approach. This means styles with no prefix apply to all screen sizes, while prefixed variants only apply at that breakpoint and above.
+</TipCard>
+
+## Conclusion
+
+Tailwind CSS represents a paradigm shift in how we approach web styling. By providing low-level utility classes, it empowers developers to build custom designs with speed and precision that was previously difficult to achieve.
+
+Whether you're a solo developer or part of a large team, Tailwind's utility-first methodology can dramatically improve your workflow and help you create beautiful, responsive websites without the constraints of traditional CSS frameworks. 

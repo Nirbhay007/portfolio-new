@@ -11,111 +11,6 @@ const EXTERNAL_POSTS_FILE = path.join(
   "content/external-posts.json"
 );
 
-const hardcodedPosts: BlogPost[] = [
-  {
-    id: "responsive-websites-with-tailwind-css",
-    title: "Building Responsive Websites with Tailwind CSS",
-    excerpt:
-      "Learn how to create beautiful, responsive websites quickly using Tailwind CSS utility classes.",
-    image:
-      "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "March 15, 2025",
-    readTime: "5 min read",
-    category: "Web Development",
-    tags: ["Tailwind CSS", "Responsive Design", "CSS"],
-    slug: "responsive-websites-with-tailwind-css",
-    author: {
-      name: "Nirbhay Singh",
-      image: "/images/avatar.jpg",
-    },
-  },
-  {
-    id: "react-hooks",
-    title: "Getting Started with React Hooks",
-    excerpt:
-      "A comprehensive guide to React Hooks and how they can simplify your functional components.",
-    image:
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "February 28, 2025",
-    readTime: "8 min read",
-    category: "React",
-    tags: ["React", "Hooks", "JavaScript"],
-    slug: "react-hooks",
-    author: {
-      name: "Nirbhay Singh",
-      image: "/images/avatar.jpg",
-    },
-  },
-  {
-    id: "introduction-to-typescript-for-javascript-developers",
-    title: "Introduction to TypeScript for JavaScript Developers",
-    excerpt:
-      "Discover how TypeScript can enhance your JavaScript development with static typing and improved tooling.",
-    image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "February 10, 2025",
-    readTime: "6 min read",
-    category: "TypeScript",
-    tags: ["TypeScript", "JavaScript", "Web Development"],
-    slug: "introduction-to-typescript-for-javascript-developers",
-    author: {
-      name: "Nirbhay Singh",
-      image: "/images/avatar.jpg",
-    },
-  },
-  {
-    id: "creating-animations-with-framer-motion",
-    title: "Creating Animations with Framer Motion",
-    excerpt:
-      "Learn how to add beautiful animations to your React applications using Framer Motion.",
-    image:
-      "https://images.unsplash.com/photo-1550063873-ab792950096b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "January 25, 2025",
-    readTime: "7 min read",
-    category: "Animation",
-    tags: ["Framer Motion", "React", "Animation"],
-    slug: "creating-animations-with-framer-motion",
-    author: {
-      name: "Nirbhay Singh",
-      image: "/images/avatar.jpg",
-    },
-  },
-  {
-    id: "building-a-restful-api-with-node-js-and-express",
-    title: "Building a RESTful API with Node.js and Express",
-    excerpt:
-      "A step-by-step guide to creating a RESTful API using Node.js and Express.",
-    image:
-      "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "January 12, 2025",
-    readTime: "10 min read",
-    category: "Backend",
-    tags: ["Node.js", "Express", "API", "Backend"],
-    slug: "building-a-restful-api-with-node-js-and-express",
-    author: {
-      name: "Nirbhay Singh",
-      image: "/images/avatar.jpg",
-    },
-  },
-  {
-    id: "state-management-in-react-with-context-api-and-usereducer",
-    title: "State Management in React with Context API and useReducer",
-    excerpt:
-      "Explore state management solutions in React using the Context API and useReducer hook.",
-    image:
-      "https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    date: "December 30, 2024",
-    readTime: "9 min read",
-    category: "React",
-    tags: ["React", "Context API", "State Management"],
-    slug: "state-management-in-react-with-context-api-and-usereducer",
-    author: {
-      name: "Nirbhay Singh",
-      image: "/images/avatar.jpg",
-    },
-  },
-];
-
 export async function getAllPosts(): Promise<BlogPost[]> {
   // Get MDX posts
   const mdxPosts = getMDXPosts();
@@ -123,8 +18,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   // Get external posts
   const externalPosts = getExternalPosts();
 
-  // Combine with hardcoded posts and sort by date
-  return [...mdxPosts, ...externalPosts, ...hardcodedPosts].sort(
+  return [...mdxPosts, ...externalPosts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }
@@ -169,5 +63,38 @@ function getExternalPosts(): BlogPost[] {
   } catch (error) {
     console.error("Error parsing external posts:", error);
     return [];
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    // Check if MDX file exists
+    const mdxFilePath = path.join(process.cwd(), 'content/blog', `${slug}.mdx`);
+    
+    if (!fs.existsSync(mdxFilePath)) {
+      return null;
+    }
+    
+    // Read and parse MDX file
+    const fileContents = fs.readFileSync(mdxFilePath, 'utf8');
+    const { data, content } = matter(fileContents);
+    
+    // Create and return the blog post object
+    return {
+      id: data.id || slug,
+      title: data.title,
+      excerpt: data.excerpt,
+      content: content,
+      image: data.image,
+      date: data.date,
+      readTime: data.readTime,
+      category: data.category,
+      tags: data.tags || [],
+      slug: slug,
+      author: data.author,
+    };
+  } catch (error) {
+    console.error(`Error getting post by slug "${slug}":`, error);
+    return null;
   }
 }

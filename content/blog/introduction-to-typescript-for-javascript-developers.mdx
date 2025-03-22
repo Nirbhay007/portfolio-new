@@ -1,0 +1,102 @@
+---
+id: "introduction-to-typescript-for-javascript-developers"
+title: "Introduction to TypeScript for JavaScript Developers"
+excerpt: "Discover how TypeScript can enhance your JavaScript development with static typing and improved tooling."
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+date: "February 10, 2025"
+readTime: "6 min read"
+category: "TypeScript"
+tags: ["TypeScript", "JavaScript", "Web Development"]
+author:
+  name: "Nirbhay Singh"
+  image: "/images/avatar.jpg"
+---
+
+# Introduction to TypeScript for JavaScript Developers
+
+Discover how TypeScript can enhance your JavaScript development with static typing and improved tooling.
+
+## What is TypeScript?
+
+TypeScript is a superset of JavaScript that adds static type definitions. Types provide a way to describe the shape of an object, providing better documentation, and allowing TypeScript to validate that your code is working correctly.
+
+## Why Use TypeScript?
+
+- **Type Safety**: Catch errors during development instead of runtime
+- **Better IDE Support**: Enhanced autocompletion, navigation, and refactoring
+- **Improved Maintainability**: Self-documenting code with explicit types
+- **Future JavaScript Features**: Use modern JavaScript features before they're fully supported
+
+## Getting Started
+
+Install TypeScript:
+
+```bash
+npm install -g typescript
+```
+
+Create a simple TypeScript file (index.ts):
+
+```typescript
+function greet(person: string): string {
+  return `Hello, ${person}!`;
+}
+
+console.log(greet("TypeScript"));
+```
+
+Compile to JavaScript:
+
+```bash
+tsc index.ts
+```
+
+## Key TypeScript Features
+
+### Basic Types
+
+```typescript
+// Basic types
+let isDone: boolean = false;
+let decimal: number = 6;
+let color: string = "blue";
+let list: number[] = [1, 2, 3];
+let x: [string, number] = ["hello", 10]; // Tuple
+```
+
+### Interfaces
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  isActive?: boolean; // Optional property
+  readonly createdAt: Date; // Read-only property
+}
+
+function createUser(user: User): User {
+  return user;
+}
+```
+
+### Type Aliases and Union Types
+
+```typescript
+type ID = string | number;
+
+function getUserById(id: ID) {
+  // ...
+}
+```
+
+## Migrating from JavaScript to TypeScript
+
+1. Rename .js files to .ts
+2. Start with the "any" type where needed
+3. Gradually add types to your functions and variables
+4. Configure the TypeScript compiler with tsconfig.json
+
+## Conclusion
+
+TypeScript offers significant advantages for JavaScript developers, especially for larger projects or teams. By adding type safety and improved tooling, it can help you catch errors earlier, write more maintainable code, and improve your development workflow. 

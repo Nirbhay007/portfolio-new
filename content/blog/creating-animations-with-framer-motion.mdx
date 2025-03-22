@@ -1,0 +1,143 @@
+---
+id: "creating-animations-with-framer-motion"
+title: "Creating Animations with Framer Motion"
+excerpt: "Learn how to add beautiful animations to your React applications using Framer Motion."
+image: "https://images.unsplash.com/photo-1550063873-ab792950096b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+date: "January 25, 2025"
+readTime: "7 min read"
+category: "Animation"
+tags: ["Framer Motion", "React", "Animation"]
+author:
+  name: "Nirbhay Singh"
+  image: "/images/avatar.jpg"
+---
+
+# Creating Animations with Framer Motion
+
+Learn how to add beautiful animations to your React applications using Framer Motion.
+
+## Introduction
+
+Framer Motion is a production-ready motion library for React that makes it easy to create sophisticated animations. Whether you're building simple UI transitions or complex gesture-based interactions, Framer Motion provides an intuitive API that helps you bring your React components to life.
+
+## Getting Started
+
+First, install Framer Motion:
+
+```bash
+npm install framer-motion
+# or
+yarn add framer-motion
+```
+
+## Basic Animation
+
+The simplest way to animate a component is with the `animate` prop:
+
+```jsx
+import { motion } from "framer-motion";
+
+function App() {
+  return (
+    <motion.div
+      animate={{ x: 100 }}
+      transition={{ duration: 0.5 }}
+    />
+  );
+}
+```
+
+## Animation Variants
+
+For more complex animations, you can use variants:
+
+```jsx
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+function AnimatedComponent() {
+  return (
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={variants}
+      transition={{ duration: 0.5 }}
+    >
+      Hello Framer Motion
+    </motion.div>
+  );
+}
+```
+
+## Gestures
+
+Framer Motion makes it easy to add gesture controls:
+
+```jsx
+function DraggableComponent() {
+  return (
+    <motion.div
+      drag
+      dragConstraints={{ top: 0, left: 0, right: 300, bottom: 300 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.95 }}
+    />
+  );
+}
+```
+
+## Page Transitions
+
+For page transitions in Next.js or React Router:
+
+```jsx
+const pageVariants = {
+  initial: { opacity: 0 },
+  in: { opacity: 1 },
+  out: { opacity: 0 }
+};
+
+function Page() {
+  return (
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={{ duration: 0.5 }}
+    >
+      Page Content
+    </motion.div>
+  );
+}
+```
+
+## AnimatePresence
+
+For animating components as they enter or leave the DOM:
+
+```jsx
+import { motion, AnimatePresence } from "framer-motion";
+
+function ToggleComponent({ isVisible }) {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          I will animate in and out
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+```
+
+## Conclusion
+
+Framer Motion provides an intuitive and powerful way to add animations to your React applications. By leveraging its declarative API, you can create smooth, responsive animations that enhance user experience without complex code. 

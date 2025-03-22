@@ -5,7 +5,7 @@ import StarField from "@/components/star-field";
 import { getAllPosts } from "@/lib/blog-actions";
 import React, { Suspense } from "react";
 
-export const revalidate = 3600; // Revalidate every hour (3600 seconds)
+export const revalidate = 33600; // Revalidate every hour (33600 seconds)
 
 export default async function Blog() {
   const posts = await getAllPosts();

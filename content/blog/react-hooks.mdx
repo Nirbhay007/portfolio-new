@@ -1,0 +1,98 @@
+---
+id: "react-hooks"
+title: "Getting Started with React Hooks"
+excerpt: "A comprehensive guide to React Hooks and how they can simplify your functional components."
+image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+date: "February 28, 2025"
+readTime: "8 min read"
+category: "React"
+tags: ["React", "Hooks", "JavaScript"]
+author:
+  name: "Nirbhay Singh"
+  image: "/images/avatar.jpg"
+---
+
+# Getting Started with React Hooks
+
+A comprehensive guide to React Hooks and how they can simplify your functional components.
+
+## Introduction
+
+React Hooks were introduced in React 16.8 as a way to use state and other React features without writing a class. They allow you to "hook into" React state and lifecycle features from function components.
+
+## Core Hooks
+
+### useState
+
+The `useState` hook allows you to add state to functional components:
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+### useEffect
+
+The `useEffect` hook lets you perform side effects in function components:
+
+```jsx
+function ProfilePage({ username }) {
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    fetchUser(username).then(data => setUser(data));
+    
+    return () => {
+      // Cleanup code
+    };
+  }, [username]); // Only re-run when username changes
+  
+  if (!user) return <p>Loading...</p>;
+  return <h1>{user.name}</h1>;
+}
+```
+
+### useContext
+
+The `useContext` hook provides a way to pass data through the component tree without having to pass props down manually:
+
+```jsx
+const ThemeContext = React.createContext('light');
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return <button className={theme}>Themed Button</button>;
+}
+```
+
+## Custom Hooks
+
+One of the most powerful features of hooks is the ability to create your own custom hooks:
+
+```jsx
+function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+  
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  return width;
+}
+```
+
+## Conclusion
+
+React Hooks provide a more direct API to React concepts like props, state, context, refs, and lifecycle. They enable you to reuse stateful logic between components and make your code more readable and maintainable. 

@@ -1,9 +1,10 @@
 import createMDX from '@next/mdx';
+import rehypePrism from 'rehype-prism-plus';
 import remarkGfm from 'remark-gfm';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -22,9 +23,10 @@ const nextConfig = {
 };
 
 const withMDX = createMDX({
+  extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [],
+    rehypePlugins: [rehypePrism],
   },
 });
 

@@ -8,6 +8,7 @@ export interface BlogPost {
   category: string;
   tags: string[];
   slug: string;
+  content: string;
   author: {
     name: string;
     image: string;

@@ -25,8 +25,6 @@ export default function BlogSection() {
         setPosts(sortedPosts.slice(0, 3));
       } catch (error) {
         console.error("Error fetching blog posts:", error);
-        // Fallback to hardcoded posts if there's an error
-        setPosts(fallbackPosts);
       } finally {
         setLoading(false);
       }
@@ -161,54 +159,4 @@ export default function BlogSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-// Fallback posts in case of fetch errors
-const fallbackPosts: BlogPost[] = [
-  {
-    id: "building-responsive-uis",
-    title: "Building Responsive UIs with Tailwind CSS",
-    excerpt: "Learn how to create beautiful, responsive user interfaces using Tailwind CSS utility classes.",
-    image: "https://images.unsplash.com/photo-1618788372246-79faff0c3742?q=80&w=2070&auto=format&fit=crop",
-    date: "May 15, 2025",
-    readTime: "5 min read",
-    category: "Frontend",
-    tags: ["Tailwind CSS", "Responsive Design", "CSS"],
-    slug: "building-responsive-uis-with-tailwind",
-    author: {
-      name: "Your Name",
-      image: "/images/authors/your-avatar.jpg"
-    }
-  },
-  {
-    id: "nextjs-14",
-    title: "Getting Started with Next.js 14",
-    excerpt: "Explore the new features and improvements in Next.js 14 and how to leverage them in your projects.",
-    image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=2074&auto=format&fit=crop",
-    date: "April 28, 2025",
-    readTime: "8 min read",
-    category: "Web Development",
-    tags: ["Next.js", "React", "Web Development"],
-    slug: "getting-started-with-nextjs-14",
-    author: {
-      name: "Your Name",
-      image: "/images/authors/your-avatar.jpg"
-    }
-  },
-  {
-    id: "typescript-modern-dev",
-    title: "The Power of TypeScript in Modern Web Development",
-    excerpt: "Discover how TypeScript can improve your development workflow and help you write more robust code.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop",
-    date: "April 10, 2025",
-    readTime: "6 min read",
-    category: "Programming",
-    tags: ["TypeScript", "JavaScript", "Web Development"],
-    slug: "power-of-typescript-in-modern-web-development",
-    author: {
-      name: "Your Name",
-      image: "/images/authors/your-avatar.jpg"
-    }
-  }
-];
+  )};
