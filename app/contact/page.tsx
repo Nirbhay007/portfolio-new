@@ -57,13 +57,12 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Send email using EmailJS
+
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
+        name: formData.name,
+        email: formData.email,
         subject: formData.subject,
         message: formData.message,
-        to_email: "nirbhaysinghbest1@gmail.com" // Replace with your email
       };
 
       const response = await fetch('/api/send-email', {
@@ -80,6 +79,7 @@ export default function Contact() {
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
+        variant: "success",
       });
 
 
@@ -91,6 +91,12 @@ export default function Contact() {
         variant: "destructive",
       });
     } finally {
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });  
       setIsSubmitting(false);
     }
   };
