@@ -57,7 +57,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Send email using EmailJS
+
       const templateParams = {
         name: formData.name,
         email: formData.email,
@@ -79,6 +79,7 @@ export default function Contact() {
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
+        variant: "success",
       });
 
 
@@ -90,6 +91,12 @@ export default function Contact() {
         variant: "destructive",
       });
     } finally {
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });  
       setIsSubmitting(false);
     }
   };

@@ -1,10 +1,10 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import CustomCursor from "@/components/custom-cursor";
+import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import Header from "@/components/header";
-import CustomCursor from "@/components/custom-cursor";
+import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
