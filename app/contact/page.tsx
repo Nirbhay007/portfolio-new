@@ -59,11 +59,10 @@ export default function Contact() {
     try {
       // Send email using EmailJS
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
+        name: formData.name,
+        email: formData.email,
         subject: formData.subject,
         message: formData.message,
-        to_email: "nirbhaysinghbest1@gmail.com" // Replace with your email
       };
 
       const response = await fetch('/api/send-email', {
