@@ -3,7 +3,7 @@ id: "building-a-restful-api-with-node-js-and-express"
 title: "Building a RESTful API with Node.js and Express"
 excerpt: "A step-by-step guide to creating a RESTful API using Node.js and Express."
 image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-date: "January 12, 2025"
+date: "January 12, 2024"
 readTime: "10 min read"
 category: "Backend"
 tags: ["Node.js", "Express", "API", "Backend"]
@@ -12,15 +12,11 @@ author:
   image: "/images/avatar.jpg"
 ---
 
-# Building a RESTful API with Node.js and Express
-
-A step-by-step guide to creating a RESTful API using Node.js and Express.
-
 ## Introduction
 
 RESTful APIs are a standard method for enabling communication between systems on the web. Node.js with Express provides a robust foundation for building scalable and maintainable APIs. In this guide, we'll walk through the process of creating a RESTful API from scratch.
 
-## Setting Up Your Project
+## Setting Up our Project
 
 Let's start by creating a new Node.js project:
 
@@ -117,7 +113,7 @@ router.delete('/:id', (req, res) => {
 module.exports = router;
 ```
 
-Now, register the routes in your main app.js file:
+Now, register the routes in our main app.js file:
 
 ```javascript
 const userRoutes = require('./routes/users');
@@ -172,4 +168,4 @@ module.exports = mongoose.model('User', userSchema);
 
 ## Conclusion
 
-This tutorial covered the basics of building a RESTful API with Node.js and Express. You've learned how to set up routes, handle HTTP methods, and integrate with MongoDB. From here, you can expand your API with authentication, validation, error handling, and more advanced features to build robust backend services. 
+This tutorial covered the basics of building a RESTful API with Node.js and Express. We've learned how to set up routes, handle HTTP methods, and integrate with MongoDB. From here, we can expand our API with authentication, validation, error handling, and more advanced features to build robust backend services. 

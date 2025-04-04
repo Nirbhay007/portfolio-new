@@ -1,9 +1,9 @@
 ---
 title: "Using MDX in Next.js"
-excerpt: "Learn how to integrate MDX into your Next.js application for rich content"
+excerpt: "Learn how to integrate MDX into our Next.js application for rich, interactive content"
 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c"
 date: "2024-03-15"
-readTime: "7 min read"
+readTime: "8 min read"
 category: "Next.js"
 tags: ["Next.js", "MDX", "React", "Content"]
 author:
@@ -11,16 +11,12 @@ author:
   image: "/images/avatar.jpg"
 ---
 
-# Using MDX in Next.js
-
-MDX is a powerful combination of Markdown and JSX that allows you to write content with embedded React components.
-
 ## Why Use MDX?
 
 MDX provides several benefits for content-heavy websites:
 
-1. **Rich Content** - Embed interactive components within your markdown
-2. **Consistent Styling** - Apply your design system to markdown content
+1. **Rich Content** - Embed interactive components within our markdown
+2. **Consistent Styling** - Apply our design system to markdown content
 3. **Developer Experience** - Write content in a familiar format
 4. **Component Reuse** - Create and reuse custom components
 
@@ -30,18 +26,23 @@ First, install the necessary dependencies:
 
 ```bash
 npm install @next/mdx @mdx-js/loader @mdx-js/react
+# Optional enhancements
+npm install remark-gfm rehype-prism-plus gray-matter next-mdx-remote
 ```
 
-Then, configure your Next.js project to support MDX:
+Then, configure our Next.js project to support MDX:
 
 ```javascript
 // next.config.mjs
 import createMDX from "@next/mdx";
+import remarkGfm from 'remark-gfm';
+import rehypePrism from 'rehype-prism-plus';
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypePrism],
+    providerImportSource: "@mdx-js/react",
   },
 });
 
@@ -50,30 +51,176 @@ export default withMDX({
 });
 ```
 
-## Using Components in MDX
+## Setting Up MDX Components
 
-One of the best features of MDX is the ability to use React components directly in your content:
+Create a custom MDX components file to enhance all our markdown elements:
+
+```tsx
+// components/mdx-components.tsx
+import type { MDXComponents } from 'mdx/types';
+import Link from 'next/link';
+import Image from 'next/image';
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    // Override base HTML elements
+    h1: ({ children }) => <h1 className="text-3xl font-bold mb-4 gradient-text">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
+    a: ({ href, children }) => <Link href={href || '#'} className="text-blue-500 hover:underline">{children}</Link>,
+    img: ({ src, alt }) => (
+      <Image 
+        src={src || ''} 
+        alt={alt || ''} 
+        width={800} 
+        height={450} 
+        className="rounded-lg my-6"
+      />
+    ),
+    // Default flow for other elements
+    ...components,
+  };
+}
+```
+
+## Using Frontmatter in MDX
+
+Frontmatter (the YAML at the top of MDX files) can be leveraged in powerful ways:
 
 ```jsx
-import { Chart } from '../components/Chart';
+// pages/blog/[slug].js
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { MDXRemote } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 
-# Sales Report
+export async function getStaticProps({ params }) {
+  const filePath = path.join(process.cwd(), 'content/blog', `${params.slug}.mdx`);
+  const source = fs.readFileSync(filePath, 'utf8');
+  
+  const { content, data } = matter(source);
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [require('remark-gfm')],
+      rehypePlugins: [require('rehype-prism-plus')],
+    },
+    scope: data, // Pass frontmatter as props
+  });
 
-Here's our quarterly sales data:
-
-<Chart data={salesData} />
+  return {
+    props: {
+      source: mdxSource,
+      frontMatter: data,
+    },
+  };
+}
 ```
+
+## Advanced MDX Features
+
+### Interactive Code Blocks
+
+MDX allows us to create interactive, editable code examples:
+
+```jsx
+function LiveCodeExample() {
+  const [code, setCode] = useState("function Hello() {\n  return <h2>Hello World</h2>;\n}");
+  
+  return (
+    <div className="my-6 border rounded-lg overflow-hidden">
+      <textarea 
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        className="w-full p-4 font-mono"
+        rows={6}
+      />
+      <div className="p-4 border-t">
+        <h3>Result would render here</h3>
+      </div>
+    </div>
+  );
+}
+```
+
+### Conditional Rendering
+
+We can use JavaScript expressions and React hooks for dynamic content. For example, we can create a greeting component that changes based on the time of day.
 
 ## Styling MDX Content
 
-You can style your MDX content using Tailwind's typography plugin:
+There are several approaches to styling our MDX content:
+
+### 1. Using Tailwind Typography
+
+The Tailwind Typography plugin is perfect for MDX:
 
 ```jsx
-<article className="prose prose-lg dark:prose-invert">
+<article className="prose prose-lg dark:prose-invert max-w-none">
   <MDXContent />
 </article>
 ```
 
+### 2. Custom Component Styling
+
+We can create a custom wrapper with specific styling:
+
+```jsx
+function MdxWrapper({ children }) {
+  return (
+    <div className="mdx-content">
+      {children}
+      <style jsx global>{`
+        .mdx-content h1 {
+          font-size: 2.5rem;
+          background: linear-gradient(to right, #c2e9fb, #a1c4fd);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        /* Other custom styles */
+      `}</style>
+    </div>
+  );
+}
+```
+
+## MDX with Server Components
+
+Next.js 13+ and React Server Components work beautifully with MDX:
+
+```jsx
+// app/blog/[slug]/page.tsx
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getPostBySlug } from '@/lib/mdx';
+import components from '@/components/mdx-components';
+
+export default async function BlogPost({ params }) {
+  const post = await getPostBySlug(params.slug);
+  
+  return (
+    <article className="prose dark:prose-invert max-w-none">
+      <h1>{post.title}</h1>
+      <MDXRemote source={post.content} components={components} />
+    </article>
+  );
+}
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+```
+
+## Debugging MDX
+
+When things go wrong with MDX, here's how to debug:
+
+1. **Check component imports** - Make sure all components are properly imported
+2. **Verify component names** - Component names must be capitalized
+3. **Look for syntax errors** - MDX is sensitive to proper JSX syntax
+4. **Check export names** - Default exports can conflict with MDX
+
 ## Conclusion
 
-MDX is a fantastic way to create rich, interactive content in your Next.js applications. It combines the simplicity of Markdown with the power of React components.
+MDX is a fantastic way to create rich, interactive content in our Next.js applications. It combines the simplicity of Markdown with the power of React components, enabling us to build truly dynamic and engaging content experiences.
+

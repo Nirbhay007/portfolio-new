@@ -1,9 +1,9 @@
 ---
 id: "react-hooks"
 title: "Getting Started with React Hooks"
-excerpt: "A comprehensive guide to React Hooks and how they can simplify your functional components."
+excerpt: "A comprehensive guide to React Hooks and how they can simplify our functional components."
 image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-date: "February 28, 2025"
+date: "February 28, 2024"
 readTime: "8 min read"
 category: "React"
 tags: ["React", "Hooks", "JavaScript"]
@@ -12,21 +12,19 @@ author:
   image: "/images/avatar.jpg"
 ---
 
-# Getting Started with React Hooks
-
-A comprehensive guide to React Hooks and how they can simplify your functional components.
-
 ## Introduction
 
-React Hooks were introduced in React 16.8 as a way to use state and other React features without writing a class. They allow you to "hook into" React state and lifecycle features from function components.
+React Hooks were introduced in React 16.8 as a way to use state and other React features without writing a class. They allow us to "hook into" React state and lifecycle features from function components.
 
 ## Core Hooks
 
 ### useState
 
-The `useState` hook allows you to add state to functional components:
+The `useState` hook allows us to add state to functional components:
 
 ```jsx
+import React, { useState } from 'react';
+
 function Counter() {
   const [count, setCount] = useState(0);
   
@@ -43,9 +41,11 @@ function Counter() {
 
 ### useEffect
 
-The `useEffect` hook lets you perform side effects in function components:
+The `useEffect` hook lets us perform side effects in function components, such as fetching data or subscribing to events:
 
 ```jsx
+import React, { useState, useEffect } from 'react';
+
 function ProfilePage({ username }) {
   const [user, setUser] = useState(null);
   
@@ -67,6 +67,8 @@ function ProfilePage({ username }) {
 The `useContext` hook provides a way to pass data through the component tree without having to pass props down manually:
 
 ```jsx
+import React, { useContext } from 'react';
+
 const ThemeContext = React.createContext('light');
 
 function ThemedButton() {
@@ -75,11 +77,116 @@ function ThemedButton() {
 }
 ```
 
-## Custom Hooks
+### useReducer
 
-One of the most powerful features of hooks is the ability to create your own custom hooks:
+The `useReducer` hook is used for managing complex state logic in components. It is similar to `useState` but is more suitable for managing state that depends on previous state values.
 
 ```jsx
+import React, { useReducer } from 'react';
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
+  return (
+    <div>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+    </div>
+  );
+}
+```
+
+### useRef
+
+The `useRef` hook allows us to create a mutable object that persists for the full lifetime of the component. It can be used to access DOM elements directly.
+
+```jsx
+import React, { useRef } from 'react';
+
+function FocusInput() {
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={handleFocus}>Focus the input</button>
+    </div>
+  );
+}
+```
+
+### useMemo
+
+The `useMemo` hook is used to memoize expensive calculations so that they are only recalculated when their dependencies change. This can improve performance in certain scenarios.
+
+```jsx
+import React, { useMemo } from 'react';
+
+function ExpensiveComponent({ num }) {
+  const computeExpensiveValue = (num) => {
+    // Simulate an expensive calculation
+    console.log("Calculating...");
+    return num * 2;
+  };
+
+  const memoizedValue = useMemo(() => computeExpensiveValue(num), [num]);
+
+  return <div>Computed Value: {memoizedValue}</div>;
+}
+```
+
+### useCallback
+
+The `useCallback` hook is used to memoize functions so that they are not recreated on every render. This is useful when passing callbacks to child components to prevent unnecessary re-renders.
+
+```jsx
+import React, { useState, useCallback } from 'react';
+
+function Button({ onClick, children }) {
+  return <button onClick={onClick}>{children}</button>;
+}
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <Button onClick={handleClick}>Increment</Button>
+      <p>Count: {count}</p>
+    </div>
+  );
+}
+```
+
+## Custom Hooks
+
+One of the most powerful features of hooks is the ability to create our own custom hooks. Custom hooks allow us to encapsulate reusable logic.
+
+```jsx
+import { useState, useEffect } from 'react';
+
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   
@@ -95,4 +202,4 @@ function useWindowWidth() {
 
 ## Conclusion
 
-React Hooks provide a more direct API to React concepts like props, state, context, refs, and lifecycle. They enable you to reuse stateful logic between components and make your code more readable and maintainable. 
+React Hooks provide a more direct API to React concepts like props, state, context, refs, and lifecycle. They enable us to reuse stateful logic between components and make our code more readable and maintainable. By understanding and utilizing these hooks, we can build more efficient and organized React applications. 

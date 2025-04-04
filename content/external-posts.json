@@ -1,23 +1,22 @@
 [
     {
         "id": "external-1",
-        "title": "Understanding React Server Components",
-        "excerpt": "A deep dive into React Server Components and their benefits",
+        "title": "Understanding Micro Frontends",
+        "excerpt": "A deep dive into Micro Frontends and their benefits",
         "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee",
-        "date": "2024-03-19",
+        "date": "2024-08-27",
         "readTime": "10 min read",
-        "category": "React",
+        "category": "Frontend Architecture",
         "tags": [
-            "React",
-            "Server Components",
-            "Next.js"
+            "Micro Frontends",
+            "Frontend Architecture"
         ],
         "author": {
             "name": "Nirbhay Singh",
             "image": "/images/avatar.jpg"
         },
         "isExternal": true,
-        "externalUrl": "https://example.com/blog/react-server-components",
-        "slug": "understanding-react-server-components"
+        "externalUrl": "https://medium.com/p/0910cda05dad",
+        "slug": "understanding-micro-frontends"
     }
 ]
